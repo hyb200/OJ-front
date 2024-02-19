@@ -1,6 +1,6 @@
 <template>
   <div id="basicLayout">
-    <a-layout style="min-height: 100vh">
+    <a-layout style="height: 100vh">
       <a-layout-header class="header"><GlobalHeader /></a-layout-header>
       <a-layout-content class="content"><router-view /></a-layout-content>
       <a-layout-footer class="footer">STOJ By Mendicus</a-layout-footer>
@@ -13,14 +13,17 @@
 }
 
 #basicLayout .header {
+  background-color: white;
   margin-bottom: 16px;
   box-shadow: #eee 1px 1px 5px;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 #basicLayout .content {
-  background: linear-gradient(to right, #aaa, #fff);
-  margin-bottom: 16px;
-  padding: 20px;
+  background: linear-gradient(to right, #fefefe, #fff);
+  padding: 10px;
 }
 
 #basicLayout .footer {

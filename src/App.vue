@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <BasicLayout />
+    <template v-if="route.fullPath.startsWith('/user')">
+      <router-view />
+    </template>
+    <template v-else>
+      <BasicLayout />
+    </template>
   </div>
 </template>
 
@@ -12,8 +17,9 @@
 <script setup lang="ts">
 import BasicLayout from "@/layouts/BasicLayout.vue";
 import { onMounted } from "vue";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 //  全局初始化函数，全局单次调用
 const doInit = () => {
@@ -23,8 +29,4 @@ const doInit = () => {
 onMounted(() => {
   doInit();
 });
-
-const router = useRouter();
-const store = useStore();
-console.log(store.state.user?.loginUser?.role);
 </script>

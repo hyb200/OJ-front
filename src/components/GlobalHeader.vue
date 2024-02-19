@@ -18,8 +18,18 @@
         </a-menu-item>
       </a-menu>
     </a-col>
-    <a-col flex="100px">
-      <div>{{ store.state.user?.loginUser?.userName ?? "未登录" }}</div>
+    <a-col flex="200px">
+      <div class="user-login">
+        <a-button
+          type="outline"
+          v-if="store.state.user.loginUser.userRole === ACCESS_ENUM.NOT_LOGIN"
+          @click="toLoginView"
+          >登录 / 注册
+        </a-button>
+        <div v-else>
+          {{ store.state.user.loginUser.userName }}
+        </div>
+      </div>
     </a-col>
   </a-row>
 </template>
@@ -41,20 +51,13 @@ const visibleRoutes = computed(() => {
       return false;
     }
 
-    if (!CheckAccess(store.state.user.loginUser, item.meta?.access as string)) {
-      return false;
-    }
+    // if (!CheckAccess(store.state.user.loginUser, item.meta?.access as string)) {
+    //   return false;
+    // }
 
     return true;
   });
 });
-
-setTimeout(() => {
-  store.dispatch("getLoginUser", {
-    userName: "ikun",
-    userRole: ACCESS_ENUM.ADMIN,
-  });
-}, 3000);
 
 const selectedKeys = ref(["/"]);
 
@@ -65,6 +68,13 @@ router.afterEach((to) => {
 const doMenuClick = (key: string) => {
   router.push({
     path: key,
+  });
+};
+
+const toLoginView = () => {
+  router.push({
+    path: "/user/login",
+    replace: true,
   });
 };
 </script>
@@ -78,5 +88,9 @@ const doMenuClick = (key: string) => {
   align-items: center;
   justify-content: center;
   padding: 10px;
+}
+
+.user-login {
+  text-align: center;
 }
 </style>
